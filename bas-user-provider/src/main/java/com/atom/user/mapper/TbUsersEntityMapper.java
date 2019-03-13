@@ -1,13 +1,10 @@
 package com.atom.user.mapper;
 
 import com.atom.user.entity.TbUsersEntity;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public interface TbUsersEntityMapper{
+public interface TbUsersEntityMapper {
     int deleteByPrimaryKey(Long id);
 
     int insert(TbUsersEntity record);
@@ -19,7 +16,4 @@ public interface TbUsersEntityMapper{
     int updateByPrimaryKeySelective(TbUsersEntity record);
 
     int updateByPrimaryKey(TbUsersEntity record);
-
-    List<TbUsersEntity> selectAll(@Param("userName") String userName);
 }
-

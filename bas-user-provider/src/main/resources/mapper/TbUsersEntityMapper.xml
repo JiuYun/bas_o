@@ -12,36 +12,40 @@
         <result column="crt_time" jdbcType="TIMESTAMP" property="crtTime"/>
         <result column="up_time" jdbcType="TIMESTAMP" property="upTime"/>
         <result column="share_code" jdbcType="VARCHAR" property="shareCode"/>
-        <result column="invite_people_code" jdbcType="VARCHAR" property="invitePeopleCode"/>
-        <result column="account_id" jdbcType="BIGINT" property="accountId"/>
+        <result column="Invite_people_code" jdbcType="VARCHAR" property="invitePeopleCode"/>
         <result column="profile_id" jdbcType="BIGINT" property="profileId"/>
+        <result column="salt" jdbcType="VARCHAR" property="salt"/>
     </resultMap>
+
     <sql id="Base_Column_List">
         id, user_name, password, email, phone, status, deleted, crt_time, up_time, share_code,
-        invite_people_code, account_id, profile_id
+        Invite_people_code, profile_id, salt
     </sql>
+
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
             <include refid="Base_Column_List"/>
         from tb_users
         where id = #{id,jdbcType=BIGINT}
     </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-        delete from tb_users
-        where id = #{id,jdbcType=BIGINT}
+        delete from tb_users where id = #{id,jdbcType=BIGINT}
     </delete>
+
     <insert id="insert" parameterType="com.atom.user.entity.TbUsersEntity">
         insert into tb_users (id, user_name, password,
             email, phone, status,
             deleted, crt_time, up_time,
-            share_code, invite_people_code, account_id,
-            profile_id)
+            share_code, Invite_people_code, profile_id,
+            salt)
         values (#{id,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
             #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
             #{deleted,jdbcType=INTEGER}, #{crtTime,jdbcType=TIMESTAMP}, #{upTime,jdbcType=TIMESTAMP},
-            #{shareCode,jdbcType=VARCHAR}, #{invitePeopleCode,jdbcType=VARCHAR}, #{accountId,jdbcType=BIGINT},
-            #{profileId,jdbcType=BIGINT})
+            #{shareCode,jdbcType=VARCHAR}, #{invitePeopleCode,jdbcType=VARCHAR}, #{profileId,jdbcType=BIGINT},
+            #{salt,jdbcType=VARCHAR})
     </insert>
+
     <insert id="insertSelective" parameterType="com.atom.user.entity.TbUsersEntity">
         insert into tb_users
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -76,13 +80,13 @@
                 share_code,
             </if>
             <if test="invitePeopleCode != null">
-                invite_people_code,
-            </if>
-            <if test="accountId != null">
-                account_id,
+                Invite_people_code,
             </if>
             <if test="profileId != null">
                 profile_id,
+            </if>
+            <if test="salt != null">
+                salt,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -119,14 +123,15 @@
             <if test="invitePeopleCode != null">
                 #{invitePeopleCode,jdbcType=VARCHAR},
             </if>
-            <if test="accountId != null">
-                #{accountId,jdbcType=BIGINT},
-            </if>
             <if test="profileId != null">
                 #{profileId,jdbcType=BIGINT},
             </if>
+            <if test="salt != null">
+                #{salt,jdbcType=VARCHAR},
+            </if>
         </trim>
     </insert>
+
     <update id="updateByPrimaryKeySelective" parameterType="com.atom.user.entity.TbUsersEntity">
         update tb_users
         <set>
@@ -158,37 +163,37 @@
                 share_code = #{shareCode,jdbcType=VARCHAR},
             </if>
             <if test="invitePeopleCode != null">
-                invite_people_code = #{invitePeopleCode,jdbcType=VARCHAR},
-            </if>
-            <if test="accountId != null">
-                account_id = #{accountId,jdbcType=BIGINT},
+                Invite_people_code = #{invitePeopleCode,jdbcType=VARCHAR},
             </if>
             <if test="profileId != null">
                 profile_id = #{profileId,jdbcType=BIGINT},
             </if>
+            <if test="salt != null">
+                salt = #{salt,jdbcType=VARCHAR},
+            </if>
         </set>
         where id = #{id,jdbcType=BIGINT}
     </update>
+
     <update id="updateByPrimaryKey" parameterType="com.atom.user.entity.TbUsersEntity">
         update tb_users
-        set user_name = #{userName,jdbcType=VARCHAR},
-            password = #{password,jdbcType=VARCHAR},
-            email = #{email,jdbcType=VARCHAR},
-            phone = #{phone,jdbcType=VARCHAR},
-            status = #{status,jdbcType=INTEGER},
-            deleted = #{deleted,jdbcType=INTEGER},
-            crt_time = #{crtTime,jdbcType=TIMESTAMP},
-            up_time = #{upTime,jdbcType=TIMESTAMP},
-            share_code = #{shareCode,jdbcType=VARCHAR},
-            invite_people_code = #{invitePeopleCode,jdbcType=VARCHAR},
-            account_id = #{accountId,jdbcType=BIGINT},
-            profile_id = #{profileId,jdbcType=BIGINT}
+            set user_name = #{userName,jdbcType=VARCHAR},
+                  password = #{password,jdbcType=VARCHAR},
+                  email = #{email,jdbcType=VARCHAR},
+                  phone = #{phone,jdbcType=VARCHAR},
+                  status = #{status,jdbcType=INTEGER},
+                  deleted = #{deleted,jdbcType=INTEGER},
+                  crt_time = #{crtTime,jdbcType=TIMESTAMP},
+                  up_time = #{upTime,jdbcType=TIMESTAMP},
+                  share_code = #{shareCode,jdbcType=VARCHAR},
+                  Invite_people_code = #{invitePeopleCode,jdbcType=VARCHAR},
+                  profile_id = #{profileId,jdbcType=BIGINT},
+                  salt = #{salt,jdbcType=VARCHAR}
         where id = #{id,jdbcType=BIGINT}
     </update>
 
-    <select id="selectAll" resultMap="BaseResultMap">
-        select * from tb_users where user_name = #{userName}
-    </select>
+
+
 
 
 

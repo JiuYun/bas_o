@@ -25,9 +25,9 @@ public class TbUsersEntity {
 
     private String invitePeopleCode;
 
-    private Long accountId;
-
     private Long profileId;
+
+    private String salt;
 
     public Long getId() {
         return id;
@@ -117,19 +117,19 @@ public class TbUsersEntity {
         this.invitePeopleCode = invitePeopleCode == null ? null : invitePeopleCode.trim();
     }
 
-    public Long getAccountId() {
-        return accountId;
-    }
-
-    public void setAccountId(Long accountId) {
-        this.accountId = accountId;
-    }
-
     public Long getProfileId() {
         return profileId;
     }
 
     public void setProfileId(Long profileId) {
         this.profileId = profileId;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt == null ? null : salt.trim();
     }
 }
