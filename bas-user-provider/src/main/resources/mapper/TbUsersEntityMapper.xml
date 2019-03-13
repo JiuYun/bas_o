@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.atom.basUser.mapper.TbUsersEntityMapper">
-    <resultMap id="BaseResultMap" type="com.atom.basUser.entity.TbUsersEntity">
+<mapper namespace="com.atom.user.mapper.TbUsersEntityMapper">
+    <resultMap id="BaseResultMap" type="com.atom.user.entity.TbUsersEntity">
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="user_name" jdbcType="VARCHAR" property="userName"/>
         <result column="password" jdbcType="VARCHAR" property="password"/>
@@ -30,7 +30,7 @@
         delete from tb_users
         where id = #{id,jdbcType=BIGINT}
     </delete>
-    <insert id="insert" parameterType="com.atom.basUser.entity.TbUsersEntity">
+    <insert id="insert" parameterType="com.atom.user.entity.TbUsersEntity">
         insert into tb_users (id, user_name, password,
             email, phone, status,
             deleted, crt_time, up_time,
@@ -42,7 +42,7 @@
             #{shareCode,jdbcType=VARCHAR}, #{invitePeopleCode,jdbcType=VARCHAR}, #{accountId,jdbcType=BIGINT},
             #{profileId,jdbcType=BIGINT})
     </insert>
-    <insert id="insertSelective" parameterType="com.atom.basUser.entity.TbUsersEntity">
+    <insert id="insertSelective" parameterType="com.atom.user.entity.TbUsersEntity">
         insert into tb_users
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -127,7 +127,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.atom.basUser.entity.TbUsersEntity">
+    <update id="updateByPrimaryKeySelective" parameterType="com.atom.user.entity.TbUsersEntity">
         update tb_users
         <set>
             <if test="userName != null">
@@ -169,7 +169,7 @@
         </set>
         where id = #{id,jdbcType=BIGINT}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.atom.basUser.entity.TbUsersEntity">
+    <update id="updateByPrimaryKey" parameterType="com.atom.user.entity.TbUsersEntity">
         update tb_users
         set user_name = #{userName,jdbcType=VARCHAR},
             password = #{password,jdbcType=VARCHAR},

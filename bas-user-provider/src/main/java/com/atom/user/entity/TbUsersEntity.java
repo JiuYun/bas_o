@@ -1,4 +1,4 @@
-package com.atom.basUser.entity;
+package com.atom.user.entity;
 
 import java.util.Date;
 

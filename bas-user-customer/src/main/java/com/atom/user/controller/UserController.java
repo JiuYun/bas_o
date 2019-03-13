@@ -1,13 +1,10 @@
-package com.atom.basUser.controller;
+package com.atom.user.controller;
 
-import com.atom.basUser.controller.client.UserClient;
+import com.atom.user.controller.client.UserClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
 import java.util.Map;
 
 @RestController

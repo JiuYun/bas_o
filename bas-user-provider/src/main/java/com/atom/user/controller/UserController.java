@@ -1,8 +1,8 @@
-package com.atom.basUser.controller;
+package com.atom.user.controller;
 
 
-import com.atom.basUser.entity.TbUsersEntity;
-import com.atom.basUser.service.UserService;
+import com.atom.user.entity.TbUsersEntity;
+import com.atom.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,6 +1,6 @@
-package com.atom.basUser.mapper;
+package com.atom.user.mapper;
 
-import com.atom.basUser.entity.TbUsersEntity;
+import com.atom.user.entity.TbUsersEntity;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

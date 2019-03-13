@@ -1,4 +1,4 @@
-package com.atom.basUser.controller.client;
+package com.atom.user.controller.client;
 
 
 import org.springframework.cloud.openfeign.FeignClient;

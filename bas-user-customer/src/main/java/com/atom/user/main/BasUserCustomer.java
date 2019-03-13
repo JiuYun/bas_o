@@ -1,4 +1,4 @@
-package com.atom.basUser.main;
+package com.atom.user.main;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +17,11 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableEurekaClient
-@ComponentScan(basePackages = {"com.atom.basUser"})
+@ComponentScan(basePackages = {"com.atom.user"})
 @ConfigurationProperties(prefix="app")
 @EnableAutoConfiguration
 @EnableScheduling
-@EnableFeignClients(basePackages={"com.atom.basUser"})
+@EnableFeignClients(basePackages={"com.atom.user"})
 public class BasUserCustomer {
 
     @Autowired

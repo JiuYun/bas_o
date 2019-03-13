@@ -1,6 +1,6 @@
-package com.atom.basUser.service;
+package com.atom.user.service;
 
-import com.atom.basUser.entity.TbUsersEntity;
+import com.atom.user.entity.TbUsersEntity;
 
 import java.util.List;
 

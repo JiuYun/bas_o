@@ -1,8 +1,8 @@
-package com.atom.basUser.service.impl;
+package com.atom.user.service.impl;
 
-        import com.atom.basUser.entity.TbUsersEntity;
-        import com.atom.basUser.mapper.TbUsersEntityMapper;
-        import com.atom.basUser.service.UserService;
+        import com.atom.user.entity.TbUsersEntity;
+        import com.atom.user.mapper.TbUsersEntityMapper;
+        import com.atom.user.service.UserService;
         import org.springframework.beans.factory.annotation.Autowired;
         import org.springframework.stereotype.Service;
 

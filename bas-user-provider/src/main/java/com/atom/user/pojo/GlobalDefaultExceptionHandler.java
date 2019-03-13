@@ -1,4 +1,4 @@
-package com.atom.basUser.pojo;
+package com.atom.user.pojo;
 
 
 import com.atom.bas.common.exception.MsgException;

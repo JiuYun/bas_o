@@ -1,4 +1,4 @@
-package com.atom.basUser.mybatis;
+package com.atom.user.mybatis;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.cache.CacheKey;
