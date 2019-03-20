@@ -57,6 +57,12 @@
         </dependency>
 
         <dependency>
+            <groupId>io.github.rhwayfun</groupId>
+            <artifactId>spring-boot-rocketmq-starter</artifactId>
+            <version>0.0.3.RELEASE</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.atom</groupId>
             <artifactId>bas-common</artifactId>
             <version>1.0-SNAPSHOT</version>

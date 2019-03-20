@@ -1,12 +1,16 @@
 package com.atom.user.controller;
 
 
+import com.atom.bas.common.CusAccessObjectUtil;
 import com.atom.bas.common.Result;
+import com.atom.bas.common.ResultUtil;
+import com.atom.user.dto.PhoneRegister;
 import com.atom.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 /****
@@ -29,10 +33,10 @@ public class UserController {
      * @param phone             目标手机号
      * @return
      */
-    @RequestMapping("/sendRegisterSMSCode/{phone}")
-    public Result sendPhoneRegisterSMSCode(@PathVariable(name = "phone") String phone){
-
-        return null;
+    @PostMapping("/sendRegisterSMSCode/{phone}")
+    public Result sendPhoneRegisterSMSCode(@PathVariable(name = "phone") String phone, HttpServletRequest request){
+        String userIpAddress = CusAccessObjectUtil.getIpAddress(request);
+        return ResultUtil.success(userService.sendPhoneRegisterSMSCode(phone,userIpAddress));
     }
 
     /***
@@ -41,9 +45,9 @@ public class UserController {
      * @return
      */
     @RequestMapping("/phoneRegister")
-    public Result phoneRegister(){
-
-        return null;
+    public Result phoneRegister(@RequestBody @Validated(PhoneRegister.Save.class) PhoneRegister register, HttpServletRequest request){
+        String userIpAddress = CusAccessObjectUtil.getIpAddress(request);
+        return ResultUtil.success(userService.phoneRegister(register,userIpAddress));
     }
 
     /***
@@ -52,9 +56,20 @@ public class UserController {
      * @return
      */
     @RequestMapping("/phoneLogin")
-    public Result phoneLogin(){
+    public Result phoneLogin(@RequestBody @Validated(PhoneRegister.PhoneVerCodeLogin.class) PhoneRegister register,HttpServletRequest request){
+        String userIpAddress = CusAccessObjectUtil.getIpAddress(request);
+        return ResultUtil.success(userService.phoneLogin(register,userIpAddress));
+    }
 
-        return null;
+    /***
+     * 发送手机号登录验证码
+     *
+     * @return
+     */
+    @RequestMapping("/sendPhoneLoginSMSCode")
+    public Result sendPhoneLoginSMSCode(@RequestBody @Validated() PhoneRegister register,HttpServletRequest request){
+        String userIpAddress = CusAccessObjectUtil.getIpAddress(request);
+        return ResultUtil.success(userService.sendPhoneLoginSmsCode(register.getPhone(),userIpAddress));
     }
 
     /***
@@ -86,6 +101,7 @@ public class UserController {
      */
     @RequestMapping("/bindWeChat")
     public Result bindWeChat(){
+
         return null;
     }
 
@@ -96,6 +112,7 @@ public class UserController {
      */
     @RequestMapping("/phoneExist")
     public Result phoneExist(){
+
         return null;
     }
 

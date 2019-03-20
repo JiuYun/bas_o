@@ -20,23 +20,15 @@ import java.util.Map;
 @RestController
 @ComponentScan(basePackages = {"com.atom.user"})
 @MapperScan("com.atom.user.mapper")
-public class BasUserProvidrer {
+public class BasUserProvider {
 
     @Bean
     public Interceptor getInterceptor(){
         return new SqlInterceptor();
     }
 
-    @RequestMapping("/userInfos")
-    public Map<String,Object> userInfos(){
-        return new HashMap<String, Object>(){{
-            put("id","1231231231");
-            put("name","123123");
-        }};
-    }
-
     public static void main(String[] args) {
-        SpringApplication.run(BasUserProvidrer.class,args);
+        SpringApplication.run(BasUserProvider.class,args);
     }
 
 }

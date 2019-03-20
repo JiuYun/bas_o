@@ -7,9 +7,16 @@ package com.atom.bas.common;
  * @param <T>
  */
 public class Result<T> {
-    private String  status;                 // Fail Or Success
+    private String  status;                 // fail Or success
     private String  message;                // tips Message
     private T       data;                   // response Object
+
+
+    public Result(String message, T data) {
+        this.status = "success";
+        this.message = message;
+        this.data = data;
+    }
 
     public String getStatus() {
         return status;
@@ -34,4 +41,9 @@ public class Result<T> {
     public void setData(T data) {
         this.data = data;
     }
+
+
+
+
+
 }
