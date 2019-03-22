@@ -67,4 +67,22 @@ public interface RedisService {
      * @return
      */
     Object get(String codeForRedis);
+
+    /***
+     * 返回一个Key剩余生命时间
+     *
+     * @param codeForRedis
+     * @return
+     */
+    long expire(String codeForRedis);
+
+    /***
+     * 自增
+     *
+     * @param key
+     */
+    void incr(String key);
+
+
+
 }

@@ -26,7 +26,7 @@ public interface UserService {
      * @param userIpAddress             用户地址
      * @return
      */
-    String sendPhoneRegisterSMSCode(String phone, String userIpAddress);
+    boolean sendPhoneRegisterSMSCode(String phone, String userIpAddress);
 
     /***
      * 注册用户

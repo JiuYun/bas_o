@@ -55,7 +55,13 @@ public class RedisServiceImpl implements RedisService {
         return operations.get(codeForRedis);
     }
 
+    @Override
+    public long expire(String codeForRedis) {
+        return 0;
+    }
 
+    @Override
+    public void incr(String key) {
 
-
+    }
 }

@@ -5,12 +5,14 @@ import com.atom.bas.common.CusAccessObjectUtil;
 import com.atom.bas.common.Result;
 import com.atom.bas.common.ResultUtil;
 import com.atom.user.dto.PhoneRegister;
+import com.atom.user.dto.WeChatUser;
 import com.atom.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.NotNull;
 
 
 /****
@@ -67,7 +69,7 @@ public class UserController {
      * @return
      */
     @RequestMapping("/sendPhoneLoginSMSCode")
-    public Result sendPhoneLoginSMSCode(@RequestBody @Validated() PhoneRegister register,HttpServletRequest request){
+    public Result sendPhoneLoginSMSCode(@RequestBody @Validated(PhoneRegister.SendPhoneLoginCode.class) PhoneRegister register,HttpServletRequest request){
         String userIpAddress = CusAccessObjectUtil.getIpAddress(request);
         return ResultUtil.success(userService.sendPhoneLoginSmsCode(register.getPhone(),userIpAddress));
     }
@@ -78,9 +80,9 @@ public class UserController {
      * @return
      */
     @RequestMapping("/phoneSMSCodeLogin")
-    public Result phoneSMSCodeLogin(){
-
-        return null;
+    public Result phoneSMSCodeLogin(@RequestBody @Validated(PhoneRegister.PhoneVerCodeLogin.class) PhoneRegister register, HttpServletRequest request){
+        String userIpAddress = CusAccessObjectUtil.getIpAddress(request);
+        return ResultUtil.success(userService.phoneLogin(register, userIpAddress));
     }
 
     /***
@@ -89,7 +91,7 @@ public class UserController {
      * @return
      */
     @RequestMapping("/weChatLogin")
-    public Result weChatLogin(){
+    public Result weChatLogin(@RequestBody @Validated @NotNull(message = "参数异常") String code, HttpServletRequest request){
 
         return null;
     }
