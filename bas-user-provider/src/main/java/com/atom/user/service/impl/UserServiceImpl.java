@@ -2,26 +2,29 @@ package com.atom.user.service.impl;
 
 import com.alibaba.druid.util.StringUtils;
 import com.atom.bas.common.exception.MsgException;
-import com.atom.bas.pojo.SMSEntity;
 import com.atom.user.constants.Constant;
+import com.atom.user.dto.BindWeChat;
+import com.atom.user.dto.PhoneExist;
 import com.atom.user.dto.PhoneRegister;
+import com.atom.user.dto.WeChatUserInfo;
 import com.atom.user.emuns.SMSCode;
+import com.atom.user.emuns.ThreeLoginType;
+import com.atom.user.entity.TbUOauth;
 import com.atom.user.entity.TbUsersEntity;
+import com.atom.user.mapper.TbUOauthMapper;
 import com.atom.user.mapper.TbUsersEntityMapper;
 import com.atom.user.service.RedisService;
 import com.atom.user.service.SMSService;
 import com.atom.user.service.UserService;
+import com.atom.user.service.WeChatService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import javax.annotation.Resources;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
 /***
  * 用户相关服务实现
@@ -33,11 +36,17 @@ public class UserServiceImpl implements UserService {
     @Resource
     private TbUsersEntityMapper usersEntityMapper;
 
+    @Resource
+    private TbUOauthMapper uOauthMapper;
+
     @Autowired
     private RedisService redisService;
 
     @Autowired
     private SMSService smsService;
+
+    @Autowired
+    private WeChatService weChatService;
 
 
     public List<TbUsersEntity> userList() {
@@ -87,31 +96,45 @@ public class UserServiceImpl implements UserService {
         return smsService.sendSMSVerCode(phone,userIpAddress,SMSCode.PHONE_LOGIN);
     }
 
+    @Override
+    public Object weChatLogin(String code, String userIpAddress) {
+        WeChatUserInfo weChatUserInfo = weChatService.weChatUserInfo(code);
+        TbUOauth oauth = uOauthMapper.selectByUnionIdAndOauthType(weChatUserInfo.getUnionid(),ThreeLoginType.WeChat.getValue());
+        if(oauth == null){
+            redisService.set(String.format(Constant.weChatUserInfoForRedis,code),weChatUserInfo,(long)(30 * 60 * 1000));
+            return null;
+        }else{
+            TbUsersEntity user = usersEntityMapper.selectByPrimaryKey(oauth.getUserId());
+            return user;
+        }
+    }
 
 
+    @Override
+    public boolean bindWeChat(BindWeChat weChat) {
+        WeChatUserInfo weChatUserInfo = weChatService.weChatUserInfo(weChat.getCode());
+        TbUOauth oauth = uOauthMapper.selectByUnionIdAndOauthType(weChatUserInfo.getUnionid(),ThreeLoginType.WeChat.getValue());
+        if(oauth != null){
+            throw new MsgException("微信号已被绑定");
+        }else{
+            oauth = uOauthMapper.selectByUserIdAndAuthType(weChat.getUserId(),ThreeLoginType.WeChat.getValue());
+            Optional.ofNullable(oauth).orElseThrow(() -> new MsgException("帐号已绑定微信"));
+        }
 
+        oauth = new TbUOauth();
+        oauth.setUserId(weChat.getUserId());
+        oauth.setOauthType(ThreeLoginType.WeChat.getValue());
+        oauth.setOatuhId(weChatUserInfo.getOpenid());
+        oauth.setUnionId(weChatUserInfo.getUnionid());
+        oauth.setCrtTime(new Date());
 
+        return uOauthMapper.insert(oauth) == 1;
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @Override
+    public boolean phoneExist(PhoneExist phoneExist) {
+        return usersEntityMapper.countByPhoneAndUserId(phoneExist.getPhone(),phoneExist.getUserId()) == 1;
+    }
 
 
 

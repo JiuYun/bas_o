@@ -25,6 +25,14 @@ public interface TbUsersEntityMapper {
      */
     TbUsersEntity selectByPhone(@Param("phone") String phone);
 
+    /***
+     * 检查手机号是否存在
+     *
+     * @param phone     手机号
+     * @param userId    用户ID
+     * @return
+     */
+    int countByPhoneAndUserId(@Param("phone") String phone, @Param("userId") Long userId);
 
 
 

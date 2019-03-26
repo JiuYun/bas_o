@@ -4,8 +4,9 @@ package com.atom.user.controller;
 import com.atom.bas.common.CusAccessObjectUtil;
 import com.atom.bas.common.Result;
 import com.atom.bas.common.ResultUtil;
+import com.atom.user.dto.BindWeChat;
+import com.atom.user.dto.PhoneExist;
 import com.atom.user.dto.PhoneRegister;
-import com.atom.user.dto.WeChatUser;
 import com.atom.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -92,9 +93,10 @@ public class UserController {
      */
     @RequestMapping("/weChatLogin")
     public Result weChatLogin(@RequestBody @Validated @NotNull(message = "参数异常") String code, HttpServletRequest request){
-
-        return null;
+        String userIpAddress = CusAccessObjectUtil.getIpAddress(request);
+        return ResultUtil.success(userService.weChatLogin(code,userIpAddress));
     }
+
 
     /***
      * 绑定微信号
@@ -102,20 +104,19 @@ public class UserController {
      * @return
      */
     @RequestMapping("/bindWeChat")
-    public Result bindWeChat(){
-
-        return null;
+    public Result bindWeChat(@RequestBody @Validated BindWeChat weChat){
+        return ResultUtil.success(userService.bindWeChat(weChat));
     }
 
+
     /***
-     * 根据手机号验证码用户是否存在
+     * 根据手机号验证用户是否存在
      *
      * @return
      */
     @RequestMapping("/phoneExist")
-    public Result phoneExist(){
-
-        return null;
+    public Result phoneExist(@RequestBody @Validated PhoneExist phoneExist){
+        return ResultUtil.success(userService.phoneExist(phoneExist));
     }
 
 

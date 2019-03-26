@@ -1,5 +1,7 @@
 package com.atom.user.service;
 
+import com.atom.user.dto.BindWeChat;
+import com.atom.user.dto.PhoneExist;
 import com.atom.user.dto.PhoneRegister;
 import com.atom.user.entity.TbUsersEntity;
 
@@ -55,4 +57,29 @@ public interface UserService {
      * @return
      */
     Object sendPhoneLoginSmsCode(String phone, String userIpAddress);
+
+    /***
+     * 微信登录
+     *
+     * @param code                      code
+     * @param userIpAddress             用户IP
+     * @return
+     */
+    Object weChatLogin(String code, String userIpAddress);
+
+    /***
+     * 绑定用户微信
+     *
+     * @param weChat
+     * @return
+     */
+    boolean bindWeChat(BindWeChat weChat);
+
+    /***
+     * 判断手机号是否存在
+     *
+     * @param phoneExist
+     * @return
+     */
+    boolean phoneExist(PhoneExist phoneExist);
 }

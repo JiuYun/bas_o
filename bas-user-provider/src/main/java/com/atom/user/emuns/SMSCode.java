@@ -18,7 +18,7 @@ public enum SMSCode {
     private String  value;                       // 业务标识
     private String  templateCode;                // 模板代码
     private long    waitTime        = 60;        // 验证码间歇时间
-    private long    survivalTime    = 160;       // 有效期秒
+    private long    survivalTime    = 1600;      // 有效期秒
 
 
     public String getBusinessName() {

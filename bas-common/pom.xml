@@ -27,6 +27,12 @@
             <artifactId>commons-pool2</artifactId>
         </dependency>
 
+        <!--hutool 工具包-->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>4.1.14</version>
+        </dependency>
 
 
     </dependencies>

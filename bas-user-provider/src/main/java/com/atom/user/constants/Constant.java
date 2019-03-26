@@ -12,6 +12,10 @@ public class Constant {
      */
     public static final String ipSendCodeCountForRedis = "send.code:count:%s";
 
+    /***
+     * 微信登录用户缓存Redis Key
+     */
+    public static final String weChatUserInfoForRedis = "base:weChatLogin:%s";
 
 
 

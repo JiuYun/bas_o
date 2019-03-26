@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atom.user.mapper.TbUOauthMapper">
+  <resultMap id="BaseResultMap" type="com.atom.user.entity.TbUOauth">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="oauth_type" jdbcType="INTEGER" property="oauthType" />
+    <result column="oatuh_id" jdbcType="VARCHAR" property="oatuhId" />
+    <result column="union_id" jdbcType="VARCHAR" property="unionId" />
+    <result column="oauth_access_token" jdbcType="VARCHAR" property="oauthAccessToken" />
+    <result column="crt_time" jdbcType="TIMESTAMP" property="crtTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, oauth_type, oatuh_id, union_id, oauth_access_token, crt_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_u_oauth
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_u_oauth
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.atom.user.entity.TbUOauth">
+    insert into tb_u_oauth (id, user_id, oauth_type, 
+      oatuh_id, union_id, oauth_access_token, 
+      crt_time)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=BIGINT}, #{oauthType,jdbcType=INTEGER},
+      #{oatuhId,jdbcType=VARCHAR}, #{unionId,jdbcType=VARCHAR}, #{oauthAccessToken,jdbcType=VARCHAR}, 
+      #{crtTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.atom.user.entity.TbUOauth">
+    insert into tb_u_oauth
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="oauthType != null">
+        oauth_type,
+      </if>
+      <if test="oatuhId != null">
+        oatuh_id,
+      </if>
+      <if test="unionId != null">
+        union_id,
+      </if>
+      <if test="oauthAccessToken != null">
+        oauth_access_token,
+      </if>
+      <if test="crtTime != null">
+        crt_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="oauthType != null">
+        #{oauthType,jdbcType=INTEGER},
+      </if>
+      <if test="oatuhId != null">
+        #{oatuhId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null">
+        #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="oauthAccessToken != null">
+        #{oauthAccessToken,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTime != null">
+        #{crtTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.atom.user.entity.TbUOauth">
+    update tb_u_oauth
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="oauthType != null">
+        oauth_type = #{oauthType,jdbcType=INTEGER},
+      </if>
+      <if test="oatuhId != null">
+        oatuh_id = #{oatuhId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null">
+        union_id = #{unionId,jdbcType=VARCHAR},
+      </if>
+      <if test="oauthAccessToken != null">
+        oauth_access_token = #{oauthAccessToken,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTime != null">
+        crt_time = #{crtTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.atom.user.entity.TbUOauth">
+    update tb_u_oauth
+    set user_id = #{userId,jdbcType=BIGINT},
+      oauth_type = #{oauthType,jdbcType=INTEGER},
+      oatuh_id = #{oatuhId,jdbcType=VARCHAR},
+      union_id = #{unionId,jdbcType=VARCHAR},
+      oauth_access_token = #{oauthAccessToken,jdbcType=VARCHAR},
+      crt_time = #{crtTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <!-- 根据第三方唯一ID和三方类型获取关联记录 -->
+    <select id="selectByUnionIdAndOauthType" resultMap="BaseResultMap">
+        select
+            <include refid="Base_Column_List"/>
+        from tb_u_oauth
+        where union_id = #{unionId} and oauth_type = #{threeType}
+    </select>
+
+    <!-- 根据第三方唯一ID和三方类型获取关联记录 -->
+    <select id="selectByOatuhIdAndOauthType" resultMap="BaseResultMap">
+      select
+          <include refid="Base_Column_List"/>
+      from tb_u_oauth
+      where oatuh_id = #{oatuhId} and oauth_type = #{threeType}
+    </select>
+
+    <!-- 根据UserID和三方类型获取关联记录 -->
+    <select id="selectByUserIdAndAuthType" resultMap="BaseResultMap">
+        select
+            <include refid="Base_Column_List"/>
+        from tb_u_oauth
+        where user_id = #{userId} and oauth_type = #{threeType}
+    </select>
+
+</mapper>
