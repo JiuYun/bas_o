@@ -1,5 +1,6 @@
-package com.atom.bas.pojo;
+package com.atom.message.dto;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 import java.util.Map;
 
@@ -9,12 +10,15 @@ import java.util.Map;
  *
  */
 public class SMSEntity {
-    
+
+    @NotEmpty(message = "请输入业务标题")
     private String              title;                   // 业务标题（登录验证码:183285933409）
     private String              templateCode;            // 信息模板
+    @NotEmpty(message = "请输入收信地址")
     private String              target;                  // 地址 (18328593409 | 1277809056@qq.com)
     private Map<String,Object>  params;                  // 参数
-    private Date                sendTime;                // 发送时间
+    private Date                sendTime;                // 发送时间发送时间
+    @NotEmpty(message = "请输入发送方式")
     private String              method;                  // 发送方式（phone | email）
     private String              senderIP;                // 发送人
 

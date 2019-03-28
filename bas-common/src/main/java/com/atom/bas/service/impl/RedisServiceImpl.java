@@ -1,6 +1,6 @@
-package com.atom.user.service.impl;
+package com.atom.bas.service.impl;
 
-import com.atom.user.service.RedisService;
+import com.atom.bas.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -41,7 +41,8 @@ public class RedisServiceImpl implements RedisService {
 
     @Override
     public boolean removeByKey(String key) {
-        return redisTemplate.delete(key);
+        redisTemplate.delete(key);
+        return true;
     }
 
     @Override

@@ -2,13 +2,13 @@ package com.atom.user.service.impl;
 
 import com.atom.bas.common.exception.MsgException;
 import com.atom.bas.pojo.SMSEntity;
+import com.atom.bas.service.RedisService;
 import com.atom.user.constants.Constant;
 import com.atom.user.emuns.SMSCode;
-import com.atom.user.service.RedisService;
 import com.atom.user.service.SMSService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +17,7 @@ import java.util.Map;
 @Service("SMSServiceImpl")
 public class SMSServiceImpl implements SMSService {
 
-    @Autowired
+    @Resource
     private RedisService redisService;
 
     private static final String PHONE = "phone";
@@ -57,6 +57,7 @@ public class SMSServiceImpl implements SMSService {
 
         SMSEntity entity = new SMSEntity();
         entity.setTitle(String.format("%s:%s",templateCode.getBusinessName(),target));
+        entity.setTemplateCode(templateCode.getTemplateCode());
         entity.setTarget(target);
         entity.setParams(params);
         entity.setSendTime(new Date());

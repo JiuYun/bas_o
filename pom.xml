@@ -12,6 +12,7 @@
         <module>bas-user-provider</module>
         <module>bas-user-customer</module>
         <module>bas-common</module>
+        <module>bas-message-sys</module>
     </modules>
     <packaging>pom</packaging>
 

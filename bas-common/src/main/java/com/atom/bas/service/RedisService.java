@@ -1,4 +1,4 @@
-package com.atom.user.service;
+package com.atom.bas.service;
 
 import java.util.Set;
 
@@ -36,7 +36,7 @@ public interface RedisService {
      * @param expireTime
      * @return
      */
-    public boolean set(String key, Object value,Long expireTime);
+    public boolean set(String key, Object value, Long expireTime);
 
 
     /***

@@ -2,6 +2,7 @@ package com.atom.user.service.impl;
 
 import com.alibaba.druid.util.StringUtils;
 import com.atom.bas.common.exception.MsgException;
+import com.atom.bas.service.RedisService;
 import com.atom.user.constants.Constant;
 import com.atom.user.dto.BindWeChat;
 import com.atom.user.dto.PhoneExist;
@@ -13,7 +14,6 @@ import com.atom.user.entity.TbUOauth;
 import com.atom.user.entity.TbUsersEntity;
 import com.atom.user.mapper.TbUOauthMapper;
 import com.atom.user.mapper.TbUsersEntityMapper;
-import com.atom.user.service.RedisService;
 import com.atom.user.service.SMSService;
 import com.atom.user.service.UserService;
 import com.atom.user.service.WeChatService;
@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
     @Resource
     private TbUOauthMapper uOauthMapper;
 
-    @Autowired
+    @Resource
     private RedisService redisService;
 
     @Autowired
