@@ -1,7 +1,7 @@
 package com.atom.message.service;
 
 
-        import com.atom.message.mq.message.SMSContent;
+import com.atom.message.mq.message.SMSContent;
 
 /**
  *
@@ -9,6 +9,9 @@ package com.atom.message.service;
  *
  */
 public interface EventPublishService {
+
+
+
 
     /***
      * 发送短信通知

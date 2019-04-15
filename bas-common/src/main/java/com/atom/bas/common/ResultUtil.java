@@ -12,4 +12,20 @@ public class ResultUtil {
     }
 
 
+    public static Result fail(Exception e) {
+        Result result = new Result();
+        result.setStatus("fall");
+        result.setMessage(e.getLocalizedMessage());
+        return result;
+    }
+
+
+    public static Result fail(String message,Object data){
+        Result result = new Result();
+        result.setStatus("fall");
+        result.setMessage(message);
+        return result;
+    }
+
+
 }

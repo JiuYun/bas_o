@@ -6,6 +6,8 @@ import com.atom.bas.service.RedisService;
 import com.atom.user.constants.Constant;
 import com.atom.user.emuns.SMSCode;
 import com.atom.user.service.SMSService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -16,6 +18,9 @@ import java.util.Map;
 
 @Service("SMSServiceImpl")
 public class SMSServiceImpl implements SMSService {
+
+    private Logger logger = LoggerFactory.getLogger(SMSServiceImpl.class);
+
 
     @Resource
     private RedisService redisService;
@@ -37,7 +42,7 @@ public class SMSServiceImpl implements SMSService {
     private boolean sendVerCode(String target, String senderIP, SMSCode templateCode,String method){
         // 每个IP每天能发送验证码的次数得有限制
         Integer ipSendCount = (Integer) redisService.get(String.format(Constant.ipSendCodeCountForRedis,senderIP));
-        if(ipSendCount != null && ipSendCount.intValue() > 10){
+        if(ipSendCount != null && ipSendCount.intValue() >= 10){
             throw new MsgException("今日短信发送量已达上限");
         }
 
@@ -67,8 +72,9 @@ public class SMSServiceImpl implements SMSService {
         redisService.incr(String.format(Constant.ipSendCodeCountForRedis,senderIP));
         redisService.set(codeForRedis,code,templateCode.getSurvivalTime());
 
-        System.out.println(String.format("发送消息:%s-%s-%s",entity.getMethod(),templateCode.getBusinessName(),code));
-
+        if(logger.isDebugEnabled()){
+            logger.debug("发送消息 -> [业务类型：{}] | [业务标识：{}] | [目标：{}] | [验证码：{}]", entity.getMethod(),templateCode.getBusinessName(),entity.getTarget(),code);
+        }
 
         // TODO 调用消息服务器发送消息
 

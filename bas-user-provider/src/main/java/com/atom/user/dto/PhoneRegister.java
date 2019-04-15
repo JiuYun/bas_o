@@ -26,7 +26,7 @@ public class PhoneRegister {
     private String phone;
 
     @NotNull(message = "短信验证码不能为空",groups = {Save.class,PhoneVerCodeLogin.class})
-    private String SMSVerCode;          // 短信验证码
+    private String smsVerCode;          // 短信验证码
 
 
     public String getUserName() {
@@ -61,12 +61,12 @@ public class PhoneRegister {
         this.phone = phone;
     }
 
-    public String getSMSVerCode() {
-        return SMSVerCode;
+    public String getSmsVerCode() {
+        return smsVerCode;
     }
 
-    public void setSMSVerCode(String SMSVerCode) {
-        this.SMSVerCode = SMSVerCode;
+    public void setSmsVerCode(String smsVerCode) {
+        this.smsVerCode = smsVerCode;
     }
 
     public interface Save{}

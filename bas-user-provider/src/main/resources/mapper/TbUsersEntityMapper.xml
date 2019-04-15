@@ -210,7 +210,16 @@
         </where>
     </select>
 
-
+    <!-- 根据用户名检查用户是否存在 -->
+    <select id="countByUserNameAndId" resultType="int">
+        select count(1) from tb_users
+        <where>
+            user_name = #{userName}
+            <if test="userId != null">
+                and id != {userId}
+            </if>
+        </where>
+    </select>
 
 
 </mapper>

@@ -4,8 +4,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.atom.message.constants.MqTopicConstants;
 import com.atom.message.mq.message.SMSContent;
 import com.atom.message.mq.topic.SMSTopic;
+import com.atom.message.service.AliYunSMSService;
 import io.github.rhwayfun.springboot.rocketmq.starter.common.AbstractRocketMqConsumer;
 import org.apache.rocketmq.common.message.MessageExt;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -16,6 +18,9 @@ import java.util.Set;
 
 @Component
 public class SMSConsumer extends AbstractRocketMqConsumer<SMSTopic,SMSContent> {
+
+    @Autowired
+    private AliYunSMSService aliYunSMSService;
 
     @Override
     public Map<String, Set<String>> subscribeTopicTags() {
@@ -36,7 +41,14 @@ public class SMSConsumer extends AbstractRocketMqConsumer<SMSTopic,SMSContent> {
     @Override
     public boolean consumeMsg(SMSContent content, MessageExt messageExt) {
         System.out.println("收到短信消息：" + JSONObject.toJSONString(content));
+
+
+
+//        aliYunSMSService.send();
         return true;
     }
+
+
+
 
 }

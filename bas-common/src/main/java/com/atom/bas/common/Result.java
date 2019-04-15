@@ -18,6 +18,9 @@ public class Result<T> {
         this.data = data;
     }
 
+    public Result() {
+    }
+
     public String getStatus() {
         return status;
     }

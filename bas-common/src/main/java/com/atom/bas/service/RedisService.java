@@ -81,7 +81,7 @@ public interface RedisService {
      *
      * @param key
      */
-    void incr(String key);
+    long incr(String key);
 
 
 

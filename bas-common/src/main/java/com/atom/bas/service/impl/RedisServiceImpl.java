@@ -8,8 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
-@Service("redisServiceImpl")
+@Service
 public class RedisServiceImpl implements RedisService {
 
     @Autowired
@@ -30,7 +31,8 @@ public class RedisServiceImpl implements RedisService {
     @Override
     public boolean set(String key, Object value, Long expireTime) {
         ValueOperations<Serializable, Object> operations = redisTemplate.opsForValue();
-        operations.set(key,value,expireTime);
+        operations.set(key,value);
+        redisTemplate.expire(key, expireTime,TimeUnit.SECONDS);
         return true;
     }
 
@@ -58,11 +60,11 @@ public class RedisServiceImpl implements RedisService {
 
     @Override
     public long expire(String codeForRedis) {
-        return 0;
+        return redisTemplate.getExpire(codeForRedis);
     }
 
     @Override
-    public void incr(String key) {
-
+    public long incr(String key) {
+        return redisTemplate.opsForValue().increment(key,1);
     }
 }

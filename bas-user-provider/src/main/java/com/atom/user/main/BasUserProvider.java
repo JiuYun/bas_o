@@ -18,14 +18,14 @@ import java.util.Map;
 @SpringBootApplication
 @EnableEurekaClient
 @RestController
-@ComponentScan(basePackages = {"com.atom.user"})
+@ComponentScan(basePackages = {"com.atom.user","com.atom.bas.service"})
 @MapperScan("com.atom.user.mapper")
 public class BasUserProvider {
 
-    @Bean
-    public Interceptor getInterceptor(){
-        return new SqlInterceptor();
-    }
+//    @Bean
+//    public Interceptor getInterceptor(){
+//        return new SqlInterceptor();
+//    }
 
     public static void main(String[] args) {
         SpringApplication.run(BasUserProvider.class,args);

@@ -60,13 +60,7 @@ public class MessageServiceImpl implements MessageService {
         }
 
         // TODO 本地生成发送记录，供查询使用
-
-
-//        Topic , EventService , Customer
-
-
-
-//        aliYunSMSService.send(entity);
+        aliYunSMSService.send(entity);
     }
 
     /***

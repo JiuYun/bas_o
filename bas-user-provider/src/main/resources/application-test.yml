@@ -6,7 +6,7 @@ spring:
         driver-class-name: com.mysql.jdbc.Driver
     # Redis 相关配置
     redis:
-          database: 5
+          database: 0
           host: 127.0.0.1
           password:
           port: 6379
@@ -19,4 +19,15 @@ spring:
                   max-wait: 1000ms
 
 
+
+
+#-- 微信
+weChat:
+  appId: wx38865ea48d74f737
+  appSecret: 78a102c897b5de8e38e0bcd623791097
+  minAppId: wxf21750a9ee35ed16
+  minAppSecret: bcd0894de9b5f4d8f1a8c17b240c7f13
+logging:
+    level:
+        com.atom: debug
 

@@ -54,17 +54,42 @@ public class UserServiceImpl implements UserService {
     }
 
     public boolean sendPhoneRegisterSMSCode(String phone, String userIpAddress) {
+        // 检查手机号是否存在
+        if(phoneExist(new PhoneExist(){{
+            setPhone(phone);
+        }})){
+            throw new MsgException("手机号已被使用");
+        }
+
         return smsService.sendSMSVerCode(phone,userIpAddress,SMSCode.PHONE_REGISTER);
     }
 
     public Object phoneRegister(PhoneRegister register, String userIpAddress) {
         // 校验验证码
-        String code         = (String) redisService.get(String.format(SMSCode.PHONE_REGISTER.getValue(),register.getPhone()));
+        String codeForRedis = String.format(SMSCode.PHONE_REGISTER.getValue(),register.getPhone());
+        String code         = (String) redisService.get(codeForRedis);
         if(StringUtils.isEmpty(code)){
             throw new MsgException("验证码不存在或已失效");
         }
-        if(!code.equalsIgnoreCase(register.getSMSVerCode())){
+        if(!code.equalsIgnoreCase(register.getSmsVerCode())){
             throw new MsgException("验证码错误");
+        }else{
+            // 清空当前验证码
+            redisService.removeByKey(codeForRedis);
+        }
+
+        // 检查用户是否存在
+        if(userNameExist(new TbUsersEntity(){{
+            setUserName(register.getUserName());
+        }})){
+            throw new MsgException("用户名已被使用");
+        }
+
+        // 检查手机号是否存在
+        if(phoneExist(new PhoneExist(){{
+            setPhone(register.getPhone());
+        }})){
+            throw new MsgException("手机号已被使用");
         }
 
         TbUsersEntity user = new TbUsersEntity();
@@ -84,7 +109,7 @@ public class UserServiceImpl implements UserService {
         if(StringUtils.isEmpty(code)){
             throw new MsgException("验证码不存在或已失效");
         }
-        if(!code.equalsIgnoreCase(register.getSMSVerCode())){
+        if(!code.equalsIgnoreCase(register.getSmsVerCode())){
             throw new MsgException("验证码错误");
         }
         TbUsersEntity user = usersEntityMapper.selectByPhone(register.getPhone());
@@ -136,6 +161,9 @@ public class UserServiceImpl implements UserService {
         return usersEntityMapper.countByPhoneAndUserId(phoneExist.getPhone(),phoneExist.getUserId()) == 1;
     }
 
+    public boolean userNameExist(TbUsersEntity userExist){
+        return usersEntityMapper.countByUserNameAndId(userExist.getUserName(),userExist.getId()) == 1;
+    }
 
 
 }

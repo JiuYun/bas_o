@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
 
 
 /****
+ *
  * 用户资料Controller
  * 1.手机号注册
  * 2.微信号注册
@@ -39,7 +40,7 @@ public class UserController {
     @PostMapping("/sendRegisterSMSCode/{phone}")
     public Result sendPhoneRegisterSMSCode(@PathVariable(name = "phone") String phone, HttpServletRequest request){
         String userIpAddress = CusAccessObjectUtil.getIpAddress(request);
-        return ResultUtil.success(userService.sendPhoneRegisterSMSCode(phone,userIpAddress));
+        return ResultUtil.success("验证码发送成功",userService.sendPhoneRegisterSMSCode(phone,userIpAddress));
     }
 
     /***
@@ -50,7 +51,7 @@ public class UserController {
     @RequestMapping("/phoneRegister")
     public Result phoneRegister(@RequestBody @Validated(PhoneRegister.Save.class) PhoneRegister register, HttpServletRequest request){
         String userIpAddress = CusAccessObjectUtil.getIpAddress(request);
-        return ResultUtil.success(userService.phoneRegister(register,userIpAddress));
+        return ResultUtil.success("注册用户成功",userService.phoneRegister(register,userIpAddress));
     }
 
     /***
