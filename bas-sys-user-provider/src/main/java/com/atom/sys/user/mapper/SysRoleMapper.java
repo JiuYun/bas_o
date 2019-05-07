@@ -1,0 +1,17 @@
+package com.atom.sys.user.mapper;
+
+import com.atom.sys.user.entity.SysRole;
+
+public interface SysRoleMapper {
+    int deleteByPrimaryKey(Long id);
+
+    int insert(SysRole record);
+
+    int insertSelective(SysRole record);
+
+    SysRole selectByPrimaryKey(Long id);
+
+    int updateByPrimaryKeySelective(SysRole record);
+
+    int updateByPrimaryKey(SysRole record);
+}
