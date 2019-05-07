@@ -60,7 +60,6 @@ public class UserServiceImpl implements UserService {
         }})){
             throw new MsgException("手机号已被使用");
         }
-
         return smsService.sendSMSVerCode(phone,userIpAddress,SMSCode.PHONE_REGISTER);
     }
 

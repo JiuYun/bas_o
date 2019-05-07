@@ -59,7 +59,7 @@ public class UserController {
      *
      * @return
      */
-    @RequestMapping("/phoneLogin")
+    @PostMapping("/phoneLogin")
     public Result phoneLogin(@RequestBody @Validated(PhoneRegister.PhoneVerCodeLogin.class) PhoneRegister register,HttpServletRequest request){
         String userIpAddress = CusAccessObjectUtil.getIpAddress(request);
         return ResultUtil.success(userService.phoneLogin(register,userIpAddress));
@@ -70,10 +70,10 @@ public class UserController {
      *
      * @return
      */
-    @RequestMapping("/sendPhoneLoginSMSCode")
+    @PostMapping("/sendPhoneLoginSMSCode")
     public Result sendPhoneLoginSMSCode(@RequestBody @Validated(PhoneRegister.SendPhoneLoginCode.class) PhoneRegister register,HttpServletRequest request){
         String userIpAddress = CusAccessObjectUtil.getIpAddress(request);
-        return ResultUtil.success(userService.sendPhoneLoginSmsCode(register.getPhone(),userIpAddress));
+        return ResultUtil.success("发送验证码成功",userService.sendPhoneLoginSmsCode(register.getPhone(),userIpAddress));
     }
 
     /***
@@ -81,7 +81,7 @@ public class UserController {
      *
      * @return
      */
-    @RequestMapping("/phoneSMSCodeLogin")
+    @PostMapping("/phoneSMSCodeLogin")
     public Result phoneSMSCodeLogin(@RequestBody @Validated(PhoneRegister.PhoneVerCodeLogin.class) PhoneRegister register, HttpServletRequest request){
         String userIpAddress = CusAccessObjectUtil.getIpAddress(request);
         return ResultUtil.success(userService.phoneLogin(register, userIpAddress));
@@ -92,7 +92,7 @@ public class UserController {
      *
      * @return
      */
-    @RequestMapping("/weChatLogin")
+    @PostMapping("/weChatLogin")
     public Result weChatLogin(@RequestBody @Validated @NotNull(message = "参数异常") String code, HttpServletRequest request){
         String userIpAddress = CusAccessObjectUtil.getIpAddress(request);
         return ResultUtil.success(userService.weChatLogin(code,userIpAddress));
@@ -104,7 +104,7 @@ public class UserController {
      *
      * @return
      */
-    @RequestMapping("/bindWeChat")
+    @PostMapping("/bindWeChat")
     public Result bindWeChat(@RequestBody @Validated BindWeChat weChat){
         return ResultUtil.success(userService.bindWeChat(weChat));
     }
@@ -115,7 +115,7 @@ public class UserController {
      *
      * @return
      */
-    @RequestMapping("/phoneExist")
+    @PostMapping("/phoneExist")
     public Result phoneExist(@RequestBody @Validated PhoneExist phoneExist){
         return ResultUtil.success(userService.phoneExist(phoneExist));
     }
