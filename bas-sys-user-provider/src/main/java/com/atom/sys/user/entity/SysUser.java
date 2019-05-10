@@ -73,7 +73,7 @@ public class SysUser {
     }
 
     public String getCredentialsSalt(){
-        return this.username + this.getSalt();
+        return username + salt;
     }
 
 }

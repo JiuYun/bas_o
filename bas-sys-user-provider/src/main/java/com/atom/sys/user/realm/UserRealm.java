@@ -3,7 +3,9 @@ package com.atom.sys.user.realm;
 import com.atom.sys.user.entity.SysUser;
 import com.atom.sys.user.service.SysUserService;
 import org.apache.shiro.authc.*;
+import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
@@ -23,6 +25,10 @@ public class UserRealm extends AuthorizingRealm {
     @Autowired
     private SysUserService userService;
 
+    public UserRealm(CredentialsMatcher matcher) {
+        super(matcher);
+    }
+
     /***
      * 获取授权信息
      * @param principals
@@ -32,9 +38,11 @@ public class UserRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         String username = (String) principals.getPrimaryPrincipal();
 
-        return null;
+        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+//        authorizationInfo.setRoles(userService.findRoles(username));
+//        authorizationInfo.setStringPermissions(userService.findPermissions(username));
+        return authorizationInfo;
     }
-
 
     /****
      * 根据用户输入凭证获取用户信息
@@ -45,7 +53,7 @@ public class UserRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-        String  userName    = (String) token.getCredentials();
+        String  userName    = (String) token.getPrincipal();
         SysUser user        = userService.selectByUserName(userName);
         if(user == null){
             throw new UnknownAccountException();        // 未找到当前账户信息

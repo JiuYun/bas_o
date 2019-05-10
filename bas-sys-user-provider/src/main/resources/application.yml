@@ -13,9 +13,9 @@ eureka:
      defaultZone: http://10.86.2.203:8081/eureka/
 
 mybatis:
-  typeAliasesPackage: com.atom.entity
+  typeAliasesPackage: com.atom.sys.user.entity
   mapperLocations: classpath:mapper/*.xml
 
 logging:
   level:
-    root: INFO
+    root: info

@@ -14,7 +14,4 @@ public interface SysUserService {
     SysUser selectByUserName(String userName);
 
 
-
-
-
 }
