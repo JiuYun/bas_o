@@ -2,7 +2,7 @@ package com.atom.bas.common;
 
 
 /***
- * General Result Entity
+ * General Result entity
  *
  * @param <T>
  */

@@ -1,0 +1,191 @@
+<!DOCTYPE table SYSTEM "../config/table-config-1.0.dtd">
+<table sqlname="user" physicalName="user" remark="用户表">
+    <!--  特殊字符说明 &lt;&gt; <> -->
+    <!-- baseSql option中 select * 会自动替换为 include -->
+    <sql id="BaseColumnList" autoGen="true">
+        .ID,.ROLE_ID,.MOBILE,.OPEN_ID,.CITY_CODE 
+        ,.CITY_NAME,.NICK_NAME,.PASSWORD,.REAL_NAME,.USER_NAME 
+        ,.FREEZE_REASON,.AVATAR_IMG_PATH,.REFUSAL_REASON,.ID_CARD_BACK_IMG_PATH,.ID_CARD_FRONT_IMG_PATH 
+        ,.IDENTITY_CARD_NUMBER,.ID_CARD_WITH_HAND_IMG_PATH,.SEX,.AUTH_STATUS,.USER_STATUS 
+        ,.REGISTER_TYPE,.AUTH_AT,.CREATE_AT,.FREEZE_AT
+    </sql>
+
+    <!-- baseSql option中 select sf.* 会自动替换为 include -->
+    <sql id="Base_SF_Column_List" autoGen="true">
+        sf.ID,sf.ROLE_ID,sf.MOBILE,sf.OPEN_ID,sf.CITY_CODE 
+        ,sf.CITY_NAME,sf.NICK_NAME,sf.PASSWORD,sf.REAL_NAME,sf.USER_NAME 
+        ,sf.FREEZE_REASON,sf.AVATAR_IMG_PATH,sf.REFUSAL_REASON,sf.ID_CARD_BACK_IMG_PATH,sf.ID_CARD_FRONT_IMG_PATH 
+        ,sf.IDENTITY_CARD_NUMBER,sf.ID_CARD_WITH_HAND_IMG_PATH,sf.SEX,sf.AUTH_STATUS,sf.USER_STATUS 
+        ,sf.REGISTER_TYPE,sf.AUTH_AT,sf.CREATE_AT,sf.FREEZE_AT
+    </sql>
+
+    <operation name="insert" paramtype="object" remark="插入表:user" autoGen="true">
+            <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+                SELECT
+                LAST_INSERT_ID()
+            </selectKey>
+            <![CDATA[
+            INSERT INTO user(
+                    ID
+                    ,ROLE_ID
+                    ,MOBILE
+                    ,OPEN_ID
+                    ,CITY_CODE
+                    ,CITY_NAME
+                    ,NICK_NAME
+                    ,PASSWORD
+                    ,REAL_NAME
+                    ,USER_NAME
+                    ,FREEZE_REASON
+                    ,AVATAR_IMG_PATH
+                    ,REFUSAL_REASON
+                    ,ID_CARD_BACK_IMG_PATH
+                    ,ID_CARD_FRONT_IMG_PATH
+                    ,IDENTITY_CARD_NUMBER
+                    ,ID_CARD_WITH_HAND_IMG_PATH
+                    ,SEX
+                    ,AUTH_STATUS
+                    ,USER_STATUS
+                    ,REGISTER_TYPE
+                    ,AUTH_AT
+                    ,CREATE_AT
+                    ,FREEZE_AT
+            )VALUES(
+                     null
+                    , #{roleId,jdbcType=BIGINT}
+                    , #{mobile,jdbcType=VARCHAR}
+                    , #{openId,jdbcType=VARCHAR}
+                    , #{cityCode,jdbcType=VARCHAR}
+                    , #{cityName,jdbcType=VARCHAR}
+                    , #{nickName,jdbcType=VARCHAR}
+                    , #{password,jdbcType=VARCHAR}
+                    , #{realName,jdbcType=VARCHAR}
+                    , #{userName,jdbcType=VARCHAR}
+                    , #{freezeReason,jdbcType=VARCHAR}
+                    , #{avatarImgPath,jdbcType=VARCHAR}
+                    , #{refusalReason,jdbcType=VARCHAR}
+                    , #{idCardBackImgPath,jdbcType=VARCHAR}
+                    , #{idCardFrontImgPath,jdbcType=VARCHAR}
+                    , #{identityCardNumber,jdbcType=VARCHAR}
+                    , #{idCardWithHandImgPath,jdbcType=VARCHAR}
+                    , #{sex,jdbcType=TINYINT}
+                    , #{authStatus,jdbcType=TINYINT}
+                    , #{userStatus,jdbcType=TINYINT}
+                    , #{registerType,jdbcType=TINYINT}
+                    , #{authAt,jdbcType=TIMESTAMP}
+                    , #{createAt,jdbcType=TIMESTAMP}
+                    , #{freezeAt,jdbcType=TIMESTAMP}
+            )
+            ]]>
+    </operation>
+
+    <!-- foreach 可以自定义类型，paramtype="primitive" foreach->javatype="自己书写的类"  -->
+    <!-- 只有一个参数且为List时必须将参数命名为list -->
+    <operation name="insertBatch" paramtype="objectList" remark="批量插入表:user"  autoGen="true">
+            INSERT INTO user(
+                    ID
+                    ,ROLE_ID
+                    ,MOBILE
+                    ,OPEN_ID
+                    ,CITY_CODE
+                    ,CITY_NAME
+                    ,NICK_NAME
+                    ,PASSWORD
+                    ,REAL_NAME
+                    ,USER_NAME
+                    ,FREEZE_REASON
+                    ,AVATAR_IMG_PATH
+                    ,REFUSAL_REASON
+                    ,ID_CARD_BACK_IMG_PATH
+                    ,ID_CARD_FRONT_IMG_PATH
+                    ,IDENTITY_CARD_NUMBER
+                    ,ID_CARD_WITH_HAND_IMG_PATH
+                    ,SEX
+                    ,AUTH_STATUS
+                    ,USER_STATUS
+                    ,REGISTER_TYPE
+                    ,AUTH_AT
+                    ,CREATE_AT
+                    ,FREEZE_AT
+            )VALUES
+            <foreach collection="list"  item="item" separator=",">
+                (
+                     null
+                    , #{item.roleId,jdbcType=BIGINT}
+                    , #{item.mobile,jdbcType=VARCHAR}
+                    , #{item.openId,jdbcType=VARCHAR}
+                    , #{item.cityCode,jdbcType=VARCHAR}
+                    , #{item.cityName,jdbcType=VARCHAR}
+                    , #{item.nickName,jdbcType=VARCHAR}
+                    , #{item.password,jdbcType=VARCHAR}
+                    , #{item.realName,jdbcType=VARCHAR}
+                    , #{item.userName,jdbcType=VARCHAR}
+                    , #{item.freezeReason,jdbcType=VARCHAR}
+                    , #{item.avatarImgPath,jdbcType=VARCHAR}
+                    , #{item.refusalReason,jdbcType=VARCHAR}
+                    , #{item.idCardBackImgPath,jdbcType=VARCHAR}
+                    , #{item.idCardFrontImgPath,jdbcType=VARCHAR}
+                    , #{item.identityCardNumber,jdbcType=VARCHAR}
+                    , #{item.idCardWithHandImgPath,jdbcType=VARCHAR}
+                    , #{item.sex,jdbcType=TINYINT}
+                    , #{item.authStatus,jdbcType=TINYINT}
+                    , #{item.userStatus,jdbcType=TINYINT}
+                    , #{item.registerType,jdbcType=TINYINT}
+                    , #{item.authAt,jdbcType=TIMESTAMP}
+                    , #{item.createAt,jdbcType=TIMESTAMP}
+                    , #{item.freezeAt,jdbcType=TIMESTAMP}
+                )
+            </foreach>
+    </operation>
+
+    <!-- 不推荐使用全 update 有需要自己打开
+    <operation name="update" paramtype="object" remark="更新表:user"  autoGen="true">
+        <![CDATA[
+        UPDATE user
+        SET
+            ROLE_ID         = #{roleId,jdbcType=BIGINT}
+            ,MOBILE          = #{mobile,jdbcType=VARCHAR}
+            ,OPEN_ID         = #{openId,jdbcType=VARCHAR}
+            ,CITY_CODE       = #{cityCode,jdbcType=VARCHAR}
+            ,CITY_NAME       = #{cityName,jdbcType=VARCHAR}
+            ,NICK_NAME       = #{nickName,jdbcType=VARCHAR}
+            ,PASSWORD        = #{password,jdbcType=VARCHAR}
+            ,REAL_NAME       = #{realName,jdbcType=VARCHAR}
+            ,USER_NAME       = #{userName,jdbcType=VARCHAR}
+            ,FREEZE_REASON   = #{freezeReason,jdbcType=VARCHAR}
+            ,AVATAR_IMG_PATH = #{avatarImgPath,jdbcType=VARCHAR}
+            ,REFUSAL_REASON  = #{refusalReason,jdbcType=VARCHAR}
+            ,ID_CARD_BACK_IMG_PATH = #{idCardBackImgPath,jdbcType=VARCHAR}
+            ,ID_CARD_FRONT_IMG_PATH = #{idCardFrontImgPath,jdbcType=VARCHAR}
+            ,IDENTITY_CARD_NUMBER = #{identityCardNumber,jdbcType=VARCHAR}
+            ,ID_CARD_WITH_HAND_IMG_PATH = #{idCardWithHandImgPath,jdbcType=VARCHAR}
+            ,SEX             = #{sex,jdbcType=TINYINT}
+            ,AUTH_STATUS     = #{authStatus,jdbcType=TINYINT}
+            ,USER_STATUS     = #{userStatus,jdbcType=TINYINT}
+            ,REGISTER_TYPE   = #{registerType,jdbcType=TINYINT}
+            ,AUTH_AT         = #{authAt,jdbcType=TIMESTAMP}
+            ,CREATE_AT       = #{createAt,jdbcType=TIMESTAMP}
+            ,FREEZE_AT       = #{freezeAt,jdbcType=TIMESTAMP}
+        WHERE
+            ID              = #{id,jdbcType=BIGINT}
+        ]]>
+    </operation>
+    -->
+    <operation name="deleteById"  remark="根据主键删除数据:user">
+        <![CDATA[
+        DELETE FROM user
+        WHERE
+            ID = #{id,jdbcType=BIGINT}
+        ]]>
+    </operation>
+
+    <operation name="getById" multiplicity="one" remark="根据主键获取数据:user">
+        SELECT *
+        FROM user
+        WHERE
+        <![CDATA[
+            ID = #{id,jdbcType=BIGINT}
+        ]]>
+    </operation>
+
+</table>
