@@ -15,6 +15,7 @@
         <module>bas-message-sys</module>
         <module>bas-sys-user-provider</module>
         <module>dalgen-start</module>
+        <module>bas-happy</module>
     </modules>
     <packaging>pom</packaging>
 
